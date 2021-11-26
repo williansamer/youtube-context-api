@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
-import api from '../api';
+import { Context } from '../Context/AuthContext';
+
+import api from '../api'; // importando a api(axios)
 
 export default function Users() {
   const [users, setUsers] = useState([]);
+  const {handleLogout} = useContext(Context);
 
-  useEffect(() => {
+  useEffect(() => { // o useEffect não permite que use o async/await dentro dele, então criamos uma função dentro dele com async/await
     (async () => {
-      const { data } = await api.get('/users');
+      const { data } = await api.get('/users');//  desestruturando o data do retorno da api. É como fosse fazer as promises e retornando o data
 
       setUsers(data);
     })();
@@ -21,7 +24,7 @@ export default function Users() {
         ))}
       </ul>
 
-      <button type="button">Sair</button>
+      <button onClick={handleLogout} type="button">Sair</button>
     </>
   );
 }

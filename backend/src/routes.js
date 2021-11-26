@@ -22,7 +22,7 @@ router.post('/authenticate', (req, res) => {
 /**
  * Private route
  */
-router.use(authMiddleware);
+router.use(authMiddleware); //As rotas abaixo são privadas, por isso precisamos passar o middleware de autenticação
 
 router.get('/users', async (req, res) => {
   return res.json([
